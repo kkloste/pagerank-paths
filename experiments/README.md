@@ -28,14 +28,19 @@ Reproducing Paper Results
 	* Top left and right: `senate_paths_setup.m` (this calls `senate_paths.m`)
 	* (a) through (f): `senate_layout.m`
 * Figure 6: run `/experiments/prpaths/prpath_usps.m`
-* Figure 7: run `/experiments/rho_scaling/lj_anomaly.m`
+
+* Figure 7:
+	1. Generate results by executing `/experiments/rho_scaling/rho-scaling-exps.sh` (this shell script will execute `rho_scaling.m` for all datasets.)
+	2. Generate images by executing `/plotting/rho_scaling_plot.m`
+
+* Figure 8: run `/experiments/rho_scaling/lj_anomaly.m`
 
 ### CHECK
 
 * Table 2:
 	1. Generate data by executing (from /ppr-all/experiments/timing_experiments)
-		* `path_fullgrow_exps.sh` to generate data for algorithm `mult`
-		* `path_time_exps.sh` to generate data for algorithms `single` and `path`
+		* `path_fullgrow_exps.sh` to generate data for algorithm `multi diff`
+		* `path_time_exps.sh` to generate data for algorithms `Single diff` and `ppr-path`
 	2. Generate table data by executing (from /ppr-all/results)
 		* `path_grow_compare_ejam.m`
 * Table 3 and 4:
@@ -44,11 +49,3 @@ Reproducing Paper Results
 	2. Generate table data by executing (from /ppr-all/results)
 		* `grid_bi_column_ejam.m`
 		
-		
-* Exact paths Figure
-
-* Rho scaling Figure
-
-* new senate images?
-* lj anomaly script?
-* rho scaling scripts

@@ -4,9 +4,12 @@
 % alpha = 0.99
 % epsmin = 1e-5
 
-clear; clc; clf;
-cd ~/Dropbox/ppr-all/code/plotting
+% Call from [project]/plotting/
 
+clear; clc; clf;
+
+load_directory = '../experiments/rho_scaling/results/';
+image_directory = '../images/';
 
 files = {
     'rho-scaling-youtube.mat',...    
@@ -16,8 +19,6 @@ files = {
 'rho-scaling-friendster.mat', ...
 'rho-scaling-fbA.mat', ...
     'rho-scaling-dblp.mat'};
-%    'rho-scaling-fb-one.mat', ...
-%  'rho-scaling-itdk0304.mat', ...
 filenames = {
 'youtube', 'twitter', 'ljournal', 'hollywood', 'friendster', ...
 'fbA', 'dblp'
@@ -31,7 +32,7 @@ linehandles = [];
 hold all
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory, fname]);
     flname = char(filenames(j));
     
     grid_size = size(times,2);
@@ -54,7 +55,7 @@ set(gca,'yscale','log');
 
 addpath ../util;
 set_figure_size([3.5,3]);
-print(gcf,strcat('rho-scaling-times.eps'),'-depsc2');
+print(gcf,strcat(image_directory, 'rho-scaling-times.eps'),'-depsc2');
 
 %%
 % CONDS
@@ -67,7 +68,7 @@ linehandles = [];
 
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory, fname]);
     flname = char(filenames(j));
     
     grid_size = size(times,2);
@@ -95,7 +96,7 @@ ylabel(sprintf('Conductance gap'));
 
 addpath ../util;
 set_figure_size([3.5,3]);
-print(gcf,strcat('rho-scaling-conductance.eps'),'-depsc2');
+print(gcf,strcat(image_directory, 'rho-scaling-conductance.eps'),'-depsc2');
 
 %% Number of eps
 
@@ -103,7 +104,7 @@ clf;
 hold all
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory, fname]);
     flname = char(filenames(j));
     
     grid_size = size(times,2);
@@ -126,4 +127,4 @@ set(gca,'yscale','log');
 addpath ../util;
 set_figure_size([3.5,3]);
 %print(gcf,strcat('rho-scaling-numeps.png'),'-dpng','-r600');
-print(gcf,strcat('rho-scaling-numeps.eps'),'-depsc2');
+print(gcf,strcat(image_directory, 'rho-scaling-numeps.eps'),'-depsc2');
