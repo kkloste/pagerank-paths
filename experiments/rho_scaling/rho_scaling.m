@@ -11,7 +11,7 @@ function rho_scaling(filename, numtrials, grid_size, load_dir)
 %
 % Call from [project]/experiments
 
-save_directory = '~/ppr-all-eps/results/';
+save_directory = './results/';
 outputname = strcat('rho-scaling-',char(filename));
 default_load_dir = '/scratch/dgleich/kyle/';
 

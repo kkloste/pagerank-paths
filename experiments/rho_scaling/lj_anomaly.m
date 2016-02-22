@@ -61,7 +61,7 @@ cmap = @() colormap(flipud(cmappart(2:6,:)));
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',2);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -81,12 +81,9 @@ xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 xlabel('1/\epsilon');
-ylabel('Degree normalized PageRank');
+ylabel('Degree-normalized PageRank');
 box off;
 
-% for i=1:size(newconds,1)
-%     line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-% end
 lasteps = Inf;
 for i=size(newconds,1):-1:1
     curcond=newconds(i,2);
@@ -163,7 +160,7 @@ cmap = @() colormap(flipud(cmappart(2:6,:)));
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',2);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -183,12 +180,9 @@ xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 xlabel('1/\epsilon');
-ylabel('Degree normalized PageRank');
+ylabel('Degree-normalized PageRank');
 box off;
 
-% for i=1:size(newconds,1)
-%     line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-% end
 lasteps = Inf;
 for i=size(newconds,1):-1:1
     curcond=newconds(i,2);
@@ -285,12 +279,9 @@ xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 xlabel('1/\epsilon');
-ylabel('Degree normalized PageRank');
+ylabel('Degree-normalized PageRank');
 box off;
 
-% for i=1:size(newconds,1)
-%     line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-% end
 lasteps = Inf;
 for i=size(newconds,1):-1:1
     curcond=newconds(i,2);

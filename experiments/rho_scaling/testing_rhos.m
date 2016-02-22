@@ -1,15 +1,15 @@
 % Plot PageRank solutions paths for netscience dataset
 % for different values of the parameter rho.
 clear; clc;
-load ../data/netscience-cc; % must change directory to point to location of dataset
+load ../../data/netscience-cc; % must change directory to point to location of dataset
 
 % Ensure adjacency matrix is symmetrized and binary
 % (can skip if data is pre-processed)
 A = A|A';
 A = A - diag(diag(A));
 n = size(A,1);
-addpath ..; %for ppr_path tools
-addpath ../util; % for set_figure_size.m
+addpath ../..; %for ppr_path tools
+addpath ../../util; % for set_figure_size.m
 
 %%
 seed = 211;
@@ -24,6 +24,5 @@ for j=1:length(rhos),
     rho = rhos(j);
     tic;
     rval = ppr_path_rho(A,seed,'epsmin',epsmin,'rho',rho);
-    %toc
-    fprintf( '\nNum eps = %f,  time=%f', length(rval.ep_stats), toc);
+    timet = toc; fprintf( '\nNum eps = %f,  time=%f', length(rval.ep_stats), toc);
 end
