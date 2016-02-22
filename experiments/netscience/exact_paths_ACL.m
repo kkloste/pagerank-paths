@@ -34,17 +34,17 @@ old_eps = 1;
 diff = zeros(size(rval.ep_stats,1), 1);
 for j=1:size(rval.ep_stats,1),
     new_eps = rval.ep_stats(j,1);
-    diff(j) = abs(old_eps-new_eps);
-    if abs(old_eps-new_eps)/new_eps>=3*1e-4,
-        eps_inds = [eps_inds; j];
-    end
+    diff(j) = abs(old_eps-new_eps)/new_eps;
     old_eps = new_eps;
 end
 
-%%
-
-eps_subset = rval.ep_stats(eps_inds);
+smallest_eps_gap = 50*epsmin ; % for faster testing
+% smallest_eps_gap = epsmin ; % for good approximate path plot
+eps_inds = find( diff >= 3*1e-4 );
+eps_subset = rval.ep_stats(eps_inds, 1);
 X = zeros(numel(xnnz),size(eps_inds,1));
+
+%%
 
 for i=1:size(eps_subset,1)
     ep = eps_subset(i);% rval.ep_stats(i,1);
@@ -88,16 +88,13 @@ yl = ylim;
 xl = [xl(1), 1e5/3];
 yl = [1e-4, yl(2)];
 
-%title(sprintf('Our \rho=%.2f approximate paths', rho) );
 title('Our \rho = 0.9 approximate paths' );
-% xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
 ylim(yl)
 xlim(xl);
-% set(gca,'XTick',[10,100,1000,10000,100000]);
-% set_figure_size([3.5,3]);
+set(gca,'XTick',[10,100,1000,10000,100000]);
 set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 
@@ -193,14 +190,12 @@ for i=1:numel(hs)
 end
 
 title('Exact paths');
-% xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
 xlim(xl);
 ylim(yl);
-% set(gca,'XTick',[10,100,1000,10000,100000]);
-% set_figure_size([3.5,3]);
+set(gca,'XTick',[10,100,1000,10000,100000]);
 set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 
@@ -215,7 +210,6 @@ plot( ((1-alpha)./taus) , minconds );
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 
-%title( );
 xlabel('1/\epsilon');
 ylabel('Best \phi');
 box off;
