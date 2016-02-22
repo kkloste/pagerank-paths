@@ -21,9 +21,6 @@ fprintf('\nSoln paths (with rho = %.2f) computed in %f \n', rho, timet );
 fprintf('\nMin conductance found: %f,  num eps=%d \n', min(rval.ep_stats(:,2)), size(rval.ep_stats,1) );
 
 
-
-
-
 %%
 % find the set of non-zeros and build a local index
 

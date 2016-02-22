@@ -27,6 +27,7 @@ xinds(xnnz) = 1:numel(xnnz);
 
 fprintf('Done. Number of epsilon values explored in our approximate soln paths, %d\n', length(rval.ep_stats) );
 
+%%
 fprintf('Next, extract subset of those epsilon values, such that consecutive values are at least 1e-5 apart.\n');
 % find subset of eps values, taking values that are at least 1e-5 apart.
 eps_inds = [];
@@ -39,8 +40,9 @@ for j=1:size(rval.ep_stats,1),
 end
 
 smallest_eps_gap = 50*epsmin ; % for faster testing
-% smallest_eps_gap = epsmin ; % for good approximate path plot
-eps_inds = find( diff >= 3*1e-4 );
+% smallest_eps_gap = 3*1e-4 ; % for good approximate path plot
+eps_inds = find( diff >= smallest_eps_gap );
+% eps_inds = 1:size(eps_inds,1);
 eps_subset = rval.ep_stats(eps_inds, 1);
 X = zeros(numel(xnnz),size(eps_inds,1));
 
