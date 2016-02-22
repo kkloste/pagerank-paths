@@ -71,23 +71,14 @@ for i=1:numel(hs)
     set(hs(i),'Color',colors(cind,:),'LineWidth',0.3);
 end
 
-xl = xlim;
+xl = xlim
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 
-% taus = [ 3*1e-4, 1e-4, 3*1e-5];
-% for j =1:length(taus),
-%     tau = taus(j);
-%     line([1/tau,1/tau],[yl(1),(1-rho)*tau],'Color','b','LineWidth',0.7);
-% end
-
-xlabel('1/\epsilon');
+% xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
-% for i=1:size(newconds,1)
-%     line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-% end
 lasteps = Inf;
 for i=size(newconds,1):-1:1
     curcond=newconds(i,2);
@@ -107,9 +98,16 @@ for i=size(newconds,1):-1:1
     end
 end
 
-xlim([xl(1),1/epsmin]);
+if seed == 309, title('Senate, core seed'); end
+if seed == 310, title('Senate, periphery seed'); end
+
 set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,3]);
+% xlim([xl(1),1/epsmin]);
+xlim([xl(1),1/min(rval.ep_stats(:,1))]);
+xl = xlim;
+% set_figure_size([3.5,3]);
+set_figure_size([3.5,2.5]);
+
 dummy = num2str(rho);
 if length(dummy)>1, dummy = dummy(3:end);
 else dummy = '0';
@@ -131,9 +129,13 @@ xlabel('1/\epsilon');
 ylabel('Best \phi');
 box off;
 
-xlim(xl);
 set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,2]);
+xlim(xl);
+
+grid
+%grid minor
+
+set_figure_size([3.5,1.5]);
 
 print(gcf,['./senate_figures/senate-s', num2str(seed), '-cond-rho', dummy,'.png'],'-dpng','-r600');
 

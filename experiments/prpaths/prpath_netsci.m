@@ -108,7 +108,8 @@ end
 xlim(xl);
 % set(gca,'XTick',[10,100,1000,10000,100000]);
 % set_figure_size([3.5,3]);
-set(gca,'XTickLabel','');
+% set(gca,'XTickLabel','');
+set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,2.5]);
 
 % Label image according to value of rho used
