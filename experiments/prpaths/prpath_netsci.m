@@ -20,21 +20,41 @@ rho = 0.9;
 tic;
 rval = ppr_path_rho(A,seed,'epsmin',epsmin,'rho',rho);
 timet = toc;
-fprintf('\nSoln paths (with rho = %.2f) computed in %f \n', timet );
+fprintf('\nSoln paths (with rho = %.2f) computed in %f \n', rho, timet );
 fprintf('\nMin conductance found: %f\n', min(rval.ep_stats(:,2)) );
 
 
 %%
 % find the set of non-zeros and build a local index
 
-fprintf('\nBegin plotting; number of eps values: %d', size( rval.ep_stats, 1 ) );
+fprintf('\nPaths computed; number of eps values: %d', size( rval.ep_stats, 1 ) );
 
 xfinal = accumarray(rval.step_stats(:,3),rval.step_stats(:,7),[n,1]);
 xnnz = find(xfinal);
 xinds = zeros(n,1);
 xinds(xnnz) = 1:numel(xnnz);
 
-% Find best conductance info
+%% determine subset of eps values, to speed things up
+% comment out this section of code to compute exact paths.
+% For faster termination, uncomment this section
+% old_eps = 1;
+% diff = zeros(size(rval.ep_stats,1), 1);
+% for j=1:size(rval.ep_stats,1),
+%     new_eps = rval.ep_stats(j,1);
+%     diff(j) = abs(old_eps-new_eps)/new_eps;
+%     old_eps = new_eps;
+% end
+% smallest_eps_gap = 50*epsmin ; % for faster testing
+% % smallest_eps_gap = epsmin ; % for good approximate path plot
+% eps_inds = find( diff >= smallest_eps_gap ); 
+% 
+% rval.ep_stats = rval.ep_stats(eps_inds,:);
+
+
+%% Find best conductance info
+fprintf('\nBegin plotting subset; number of eps values: %d, max used: %d', ...
+    size( rval.ep_stats, 1 ), max(eps_inds)  );
+
 X = zeros(numel(xnnz),size(rval.ep_stats,1));
 newconds = [];
 mincond = Inf;
@@ -59,9 +79,8 @@ cmappart = hot(9);
 cmap = @() colormap(flipud(cmappart(2:6,:)));
 
 clf; hold on;
-xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',2);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -81,7 +100,6 @@ xl = xlim;
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 title('Netscience');
-% xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
@@ -106,18 +124,16 @@ for i=size(newconds,1):-1:1
 end
 
 xlim(xl);
-% set(gca,'XTick',[10,100,1000,10000,100000]);
-% set_figure_size([3.5,3]);
-% set(gca,'XTickLabel','');
 set(gca,'XTick',[10,100,1000,10000,100000]);
+set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
+% set_figure_size([3.5,3]);
 
 % Label image according to value of rho used
 dummy = num2str(rho);
 if length(dummy)>1, dummy = dummy(3:end);
 else dummy = '0'; end
 print(gcf,['./figures/netsci-path-rho', dummy ,'.png'],'-dpng','-r600');
-
 
 fprintf('\n paths done.\n');
 
@@ -130,12 +146,11 @@ plot( 1./rval.ep_stats(:,1), rval.ep_stats(:,2) )
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 
-%title( );
 xlabel('1/\epsilon');
 ylabel('Best \phi');
 box off;
 
-xlim(xl);
+xlim(xl); % ensure conductance is on same axis as Path Plot above.
 ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);

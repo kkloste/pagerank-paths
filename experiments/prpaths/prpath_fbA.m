@@ -16,18 +16,45 @@ rho = 0.9;
 
 tic;
 rval = ppr_path_rho(A,seed,'epsmin',epsmin,'rho',rho);
-toc
+timet = toc;
+fprintf('\nSoln paths (with rho = %.2f) computed in %f \n', rho, timet );
 fprintf('\nMin conductance found: %f,  num eps=%d \n', min(rval.ep_stats(:,2)), size(rval.ep_stats,1) );
+
+
+
 
 
 %%
 % find the set of non-zeros and build a local index
+
+fprintf('\nPaths computed; number of eps values: %d', size( rval.ep_stats, 1 ) );
+
 xfinal = accumarray(rval.step_stats(:,3),rval.step_stats(:,7),[n,1]);
 xnnz = find(xfinal);
 xinds = zeros(n,1);
 xinds(xnnz) = 1:numel(xnnz);
 
-% Find best conductance info
+%% determine subset of eps values, to speed things up
+% comment out this section of code to compute exact paths.
+% For faster termination, uncomment this section
+% old_eps = 1;
+% diff = zeros(size(rval.ep_stats,1), 1);
+% for j=1:size(rval.ep_stats,1),
+%     new_eps = rval.ep_stats(j,1);
+%     diff(j) = abs(old_eps-new_eps)/new_eps;
+%     old_eps = new_eps;
+% end
+% smallest_eps_gap = 50*epsmin ; % for faster testing
+% % smallest_eps_gap = epsmin ; % for good approximate path plot
+% eps_inds = find( diff >= smallest_eps_gap ); 
+% 
+% rval.ep_stats = rval.ep_stats(eps_inds,:);
+
+
+%% Find best conductance info
+fprintf('\nBegin plotting subset; number of eps values: %d, max used: %d', ...
+    size( rval.ep_stats, 1 ), max(eps_inds)  );
+
 X = zeros(numel(xnnz),size(rval.ep_stats,1));
 newconds = [];
 mincond = Inf;
@@ -73,14 +100,10 @@ xl = xlim;
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 title('Facebook');
-%xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
 % Insert vertical blue lines marking best conductance sets
-% for i=1:size(newconds,1)
-%     line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-% end
 lasteps = Inf;
 for i=size(newconds,1):-1:1
     curcond=newconds(i,2);
@@ -95,24 +118,17 @@ for i=size(newconds,1):-1:1
             ht=text(curep,yl(1), sprintf('\\phi = %.3f',curcond),...
                 'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','left',...
                 'FontSize',9);
-%             ht=text(curep,newconds(i,1), sprintf('\\phi = %.3f',curcond),...
-%                 'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','left',...
-%                 'FontSize',8);
-%         else
-%             ht=text(curep,(yl(1)*newconds(i,1))^(1/2), sprintf('\\phi = %.3f',curcond),...
-%                 'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','center',...
-%                 'FontSize',8);
         end
         lasteps = curep;
     end
 end
 
 xlim(xl);
-xl = xlim;
-% set(gca,'XTickLabel','');
-% set_figure_size([3.5,3]);
 set(gca,'XTick',[10,100,1000,10000,100000]);
+set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
+% set_figure_size([3.5,3]);
+
 
 
 % Label image according to value of rho used
