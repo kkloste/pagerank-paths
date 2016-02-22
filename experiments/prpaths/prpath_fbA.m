@@ -50,11 +50,9 @@ xinds(xnnz) = 1:numel(xnnz);
 % 
 % rval.ep_stats = rval.ep_stats(eps_inds,:);
 
+% fprintf('\nBegin plotting subset; number of eps values: %d, max used: %d', size( rval.ep_stats, 1 ), max(eps_inds)  );
 
 %% Find best conductance info
-fprintf('\nBegin plotting subset; number of eps values: %d, max used: %d', ...
-    size( rval.ep_stats, 1 ), max(eps_inds)  );
-
 X = zeros(numel(xnnz),size(rval.ep_stats,1));
 newconds = [];
 mincond = Inf;
