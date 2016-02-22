@@ -124,8 +124,6 @@ set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 % set_figure_size([3.5,3]);
 
-
-
 % Label image according to value of rho used
 dummy = num2str(rho);
 if length(dummy)>1, dummy = dummy(3:end);

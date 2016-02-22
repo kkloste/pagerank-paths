@@ -2,7 +2,7 @@
 clear; clc;
 
 % CHANGE DIRECTORY
-load ~/Desktop/data/weblab/ljournal-2008;
+load ../../../ljournal-2008;
 assert( max(diag(A)) == 0, 'not hollow');
 assert( nnz(A - A') == 0, 'not sym');
 
@@ -80,7 +80,7 @@ xl = xlim;
 xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
-xlabel('1/\epsilon');
+title('LiveJournal, \rho = 0');
 ylabel('Degree-normalized PageRank');
 box off;
 
@@ -105,8 +105,32 @@ end
 
 xlim(xl);
 set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,3]);
-print(gcf,['lj-seed' num2str(seed) '-rho0.png'],'-dpng','-r600');
+set(gca,'XTickLabel','');
+set_figure_size([3.5,2.5]);
+print(gcf,['./images/lj-seed' num2str(seed) '-rho0.png'],'-dpng','-r600');
+
+%% Plot conductance for rho = 0
+fprintf('Now, plot conductances. \n');
+
+clf;
+plot( 1./rval.ep_stats(:,1), rval.ep_stats(:,2) )
+
+set(gca,'XScale','log');
+set(gca,'YScale','log');
+
+xlabel('1/\epsilon');
+ylabel('Best \phi');
+box off;
+
+xlim(xl);
+ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+set(gca,'XTick',[10,100,1000,10000,100000]);
+set_figure_size([3.5,1.5]);
+
+print(gcf,['./images/lj-seed' num2str(seed) '-rho0-cond.png'],'-dpng','-r600');
+
+fprintf('\n lj rho=0 done.\n');
+
 
 %% rho = 0.9 paths
 
@@ -179,7 +203,7 @@ xl = xlim;
 xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
-xlabel('1/\epsilon');
+title('LiveJournal, \rho = 0.9');
 ylabel('Degree-normalized PageRank');
 box off;
 
@@ -204,8 +228,31 @@ end
 
 xlim(xl);
 set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,3]);
-print(gcf,['lj-seed' num2str(seed) '-rho9.png'],'-dpng','-r600');
+set(gca,'XTickLabel','');
+set_figure_size([3.5,2.5]);
+print(gcf,['./images/lj-seed' num2str(seed) '-rho9.png'],'-dpng','-r600');
+
+%% Plot conductance for rho = 0
+fprintf('Now, plot conductances. \n');
+
+clf;
+plot( 1./rval.ep_stats(:,1), rval.ep_stats(:,2) )
+
+set(gca,'XScale','log');
+set(gca,'YScale','log');
+
+xlabel('1/\epsilon');
+ylabel('Best \phi');
+box off;
+
+xlim(xl);
+ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+set(gca,'XTick',[10,100,1000,10000,100000]);
+set_figure_size([3.5,1.5]);
+
+print(gcf,['./images/lj-seed' num2str(seed) '-rho9-cond.png'],'-dpng','-r600');
+
+fprintf('\n lj rho=0.9 done.\n');
 
 %% rho = 0.9 paths
 
@@ -259,7 +306,7 @@ cmap = @() colormap(flipud(cmappart(2:6,:)));
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',2);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -278,7 +325,7 @@ xl = xlim;
 xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
-xlabel('1/\epsilon');
+title('LiveJournal, \rho=0.9, small \varepsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 
@@ -303,5 +350,28 @@ end
 
 xlim(xl);
 set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,3]);
-print(gcf,['lj-seed' num2str(seed) '-rho9fulleps.png'],'-dpng','-r600');
+set(gca,'XTickLabel','');
+set_figure_size([3.5,2.5]);
+print(gcf,['./images/lj-seed' num2str(seed) '-rho9fulleps.png'],'-dpng','-r600');
+
+%% Plot conductance for rho = 0.9, full eps
+fprintf('Now, plot conductances. \n');
+
+clf;
+plot( 1./rval.ep_stats(:,1), rval.ep_stats(:,2) )
+
+set(gca,'XScale','log');
+set(gca,'YScale','log');
+
+xlabel('1/\epsilon');
+ylabel('Best \phi');
+box off;
+
+xlim(xl);
+ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+set(gca,'XTick',[10,100,1000,10000,100000]);
+set_figure_size([3.5,1.5]);
+
+print(gcf,['./images/lj-seed' num2str(seed) '-rho9fulleps-cond.png'],'-dpng','-r600');
+
+fprintf('\n lj rho=0.9, full eps done.\n');
