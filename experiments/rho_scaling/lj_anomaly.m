@@ -56,14 +56,14 @@ bestcutvals = cutsweep(A,xperm); % find the best conductance set
 
 
 %%
-
+bset_line_width = 1.5;
 cmappart = hot(9);
 cmap = @() colormap(flipud(cmappart(2:6,:)));
 
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',bset_line_width);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -186,7 +186,7 @@ cmap = @() colormap(flipud(cmappart(2:6,:)));
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',bset_line_width);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -308,7 +308,7 @@ cmap = @() colormap(flipud(cmappart(2:6,:)));
 clf; hold on;
 xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
 hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1.5);
+plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',bset_line_width);
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 crange = [-3,0];
@@ -327,7 +327,7 @@ xl = xlim;
 xl = [xl(1), 1/epsmin];
 yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
-title('LiveJournal, \rho=0.9, small \varepsilon');
+title('LiveJournal, \rho=0.9, small \epsilon');
 ylabel('Degree-normalized PageRank');
 box off;
 

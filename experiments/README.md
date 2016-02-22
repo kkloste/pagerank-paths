@@ -21,15 +21,12 @@ All experiments require you to specify the directory in which the relevant datas
 * Figure 2: run `/experiments/netscience/exact_paths_ACL.m` (Note this took about 2 minutes to run on a 2014 macbook air.)
 * Figure 3: run `/experiments/prpaths/prpath_netsci.m` (Note that with rho=0.9 this will take 30-70 minutes, even though computing the PageRank info itself takes less than a second. This is because we haven't yet optimized the plotting features for runtime.)
 * Figure 4: run `/experiments/prpaths/prpath_fbA.m` (This could take almost 15 minutes, even though computing the PageRank info itself takes less than a second. This is because we haven't yet optimized the plotting features for runtime.)
-
+* Figure 5: From `/experiments/senate/` execute:
+	* Top left and right: `senate_paths_setup.m` (this calls `senate_paths.m`)
+	* (a) through (f): `senate_layout.m`
 * Figure 6: run `/experiments/prpaths/prpath_usps.m`
 
 ### CHECK
-
-* Figure 4: From `/experiments/senate/` execute:
-	* Top left and right: `senate_paths_setup.m` (this calls `senate_paths.m`)
-	* (c) through (h): `senate_layout.m`
-
 
 * Table 2:
 	1. Generate data by executing (from /ppr-all/experiments/timing_experiments)
