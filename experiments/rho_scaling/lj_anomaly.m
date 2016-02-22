@@ -126,6 +126,7 @@ box off;
 
 xlim(xl);
 ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+yl_cond = ylim;
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 
@@ -248,7 +249,8 @@ ylabel('Best \phi');
 box off;
 
 xlim(xl);
-ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+% ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 
@@ -370,7 +372,8 @@ ylabel('Best \phi');
 box off;
 
 xlim(xl);
-ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+% ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 
