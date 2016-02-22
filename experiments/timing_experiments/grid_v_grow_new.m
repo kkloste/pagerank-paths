@@ -12,7 +12,8 @@ function grid_v_grow_new(filename, numtrials, load_dir)
 
 save_directory = './results/';
 outputname = strcat('grid_v_grow_on_',char(filename));
-default_load_dir = '../../data/';
+% default_load_dir = '../../data/';
+default_load_dir = '/scratch/dgleich/kyle/';
 load_directory = default_load_dir;
 if nargin == 3,
     load_directory = load_dir;

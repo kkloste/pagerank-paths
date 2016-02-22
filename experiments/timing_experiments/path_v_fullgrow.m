@@ -14,7 +14,8 @@ function path_v_fullgrow(filename, epsmin, numtrials, rho, load_dir)
 
 save_directory = './results/';
 outputname = strcat('pathgrow-many-',char(filename));
-default_load_dir = '../../data/';
+% default_load_dir = '../../data/';
+default_load_dir = '/scratch/dgleich/kyle/';
 load_directory = default_load_dir;
 if nargin == 5,
     load_directory = load_dir;
