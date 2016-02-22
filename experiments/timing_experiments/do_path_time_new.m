@@ -8,21 +8,19 @@ function do_path_time(filename, epsmin, numtrials, rho, load_dir)
 % If load_dir is specified, the dataset will be loaded from that directory,
 % instead of the default directory.
 %
-% Call from [project]/experiments
+% Call from [project]/experiments/timing_experiments
 
-save_directory = '~/ppr-all-eps/results/';
+save_directory = './results/';
 outputname = strcat('path-time-',char(filename));
-default_load_dir = '/scratch/dgleich/kyle/';
-
-addpath ../..;       % for mex code
-addpath ../../util ;   % for tools
-
-
+default_load_dir = '../../data/';
 load_directory = default_load_dir;
 if nargin == 5,
     load_directory = load_dir;
 end
 load(strcat(load_directory,char(filename)));
+
+addpath ../.. ;       % for mex code
+addpath ../../util ;   % for tools
 
 if nargin < 4,
     rho = 0;

@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # to call this shell script, use this, from directory [project]/experiments/timing_experiments:
-# ./new_grid_experiments.sh
+# ./grid_experiments.sh
 clear
-echo 'new_grid_experiments'
+echo 'grid_experiments'
 
 # change permissions to ensure this script can run everything it's supposed to
 # chmod 744 *.sh
 # chmod 744 *.m
 
-echo 'new_grid_experiments runs'
+echo 'grid_experiments runs'
 
 nohup /p/matlab-7.14/bin/matlab -nodisplay -nodesktop -nosplash -r "grid_v_grow_new( 'itdk0304' , 100);" > c-11-29-itdk.txt &
 nohup /p/matlab-7.14/bin/matlab -nodisplay -nodesktop -nosplash -r "grid_v_grow_new( 'dblp' , 100);" > c-11-29-dblp.txt &

@@ -8,11 +8,11 @@ function grid_v_grow_new(filename, numtrials, load_dir)
 % If load_dir is specified, the dataset will be loaded from that directory,
 % instead of the default directory.
 %
-% Call from [project]/experiments
+% Call from [project]/experiments/timing_experiments
 
-save_directory = '~/ppr-all-eps/results/';
+save_directory = './results/';
 outputname = strcat('grid_v_grow_on_',char(filename));
-default_load_dir = '/scratch/dgleich/kyle/';
+default_load_dir = '../../data/';
 load_directory = default_load_dir;
 if nargin == 3,
     load_directory = load_dir;

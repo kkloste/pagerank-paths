@@ -38,14 +38,14 @@ Reproducing Paper Results
 ### CHECK
 
 * Table 2:
-	1. Generate data by executing (from /ppr-all/experiments/timing_experiments)
+	1. Generate data by executing (from `/experiments/timing_experiments/`)
 		* `path_fullgrow_exps.sh` to generate data for algorithm `multi diff`
 		* `path_time_exps.sh` to generate data for algorithms `Single diff` and `ppr-path`
 	2. Generate table data by executing (from /ppr-all/results)
 		* `path_grow_compare_ejam.m`
 * Table 3 and 4:
-	1. Generate data by executing (from /ppr-all/experiments/timing_experiments)
+	1. Generate data by executing (from `/experiments/timing_experiments/`)
 		* `new_grid_experiments.sh`
-	2. Generate table data by executing (from /ppr-all/results)
+	2. Generate table data by executing (from `/results/`)
 		* `grid_bi_column_ejam.m`
 		
