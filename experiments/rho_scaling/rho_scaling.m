@@ -59,8 +59,6 @@ for trial_id=1:numtrials,
     fprintf('\n trial=%d\n', trial_id);
 end
 
-
-
 save( [save_directory outputname '.mat'] ,'filename','n','Gvol','seeds','conds','num_eps','times','-v7.3');
 clear;
 exit
