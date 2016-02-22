@@ -7,6 +7,8 @@ assert( max(diag(A)) == 0, 'not hollow');
 assert( nnz(A - A') == 0, 'not sym');
 
 addpath ../..;
+addpath ../../util; % for cutsweep
+
 
 %% rho = 0 paths
 
