@@ -14,7 +14,7 @@ function [times conds seeds] = test_ppr_paths_rho(numtrials, filename, eps, alph
 %     [step_stats,eps_stats,bestset] = ppr_ppr_paths_rho_mex(A,set);
 %
 
-addpath ../util ;   % for loading, and cut-set tools
+addpath ./util ;   % for loading, and cut-set tools
 
 tic;
 % check inputs
@@ -85,6 +85,8 @@ for j=1:length(seeds),
     end
 
 end
+
+fprintf('Testing done. If no warnings were output, then everything is ok. \n' );
 
 % output from ppr_paths_rho_mex:
 %

@@ -13,11 +13,14 @@ if exist('A','var') && exist('B','var')
 end
 
 if ~exist('A','var') || ~exist('B','var')
-    A=readSMAT('~/data/graph-db/traces/anony-interactions-oneyearA-cc.smat');
+%     A=readSMAT('~/data/graph-db/traces/anony-interactions-oneyearA-cc.smat');
+    load ./data/usps_3nn.mat;
+    B = G; clear G;
+    B=B-diag(diag(B));
+    
+    A=readSMAT('./data/netscience-cc.smat');
     A=A-diag(diag(A));
     
-    B=readSMAT('~/data/router/itdk0304-cc.smat');
-    B=B-diag(diag(B));
 end
     
 compile
@@ -43,16 +46,16 @@ for gi=1:numel(Graphs)
     
 
     for id=1:length(seeds)
-        vert = seeds(id);
+        vert = seeds(id)
     
-        tic; [bestset1,cond1,cut1,vol1] = pprgrow(A,vert); reftime = toc;
-        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(A,vert,alpha, epsmin, .99, 0); curtimes(end+1) = toc/reftime;
-        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(A,vert,alpha, epsmin, .817, 0); curtimes(end+1) = toc/reftime;
-        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(A,vert,alpha, epsmin, .66, 0); curtimes(end+1) = toc/reftime;
+        tic; [bestset1,cond1,cut1,vol1] = pprgrow(G,vert); reftime = toc;
+        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(G,vert,alpha, epsmin, .99, 0); curtimes(end+1) = toc/reftime;
+        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(G,vert,alpha, epsmin, .817, 0); curtimes(end+1) = toc/reftime;
+        tic; [bset2,cond2,cut2,vol2] = ppr_grid_mex(G,vert,alpha, epsmin, .66, 0); curtimes(end+1) = toc/reftime;
 
-        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(A,vert,alpha, epsmin, .99, 0); newtimes(end+1) = toc/reftime;
-        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(A,vert,alpha, epsmin, .817, 0); newtimes(end+1) = toc/reftime;
-        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(A,vert,alpha, epsmin, .66, 0); newtimes(end+1) = toc/reftime;
+        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(G,vert,alpha, epsmin, .99, 0); newtimes(end+1) = toc/reftime;
+        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(G,vert,alpha, epsmin, .817, 0); newtimes(end+1) = toc/reftime;
+        tic; [bset2,cond2,cut2,vol2] = ppr_fast_grid_mex(G,vert,alpha, epsmin, .66, 0); newtimes(end+1) = toc/reftime;
         
         fprintf('%6s    %5.2f  %5.2f  %5.2f    %5.2f  %5.2f  %5.2f\n', ' ', ...
             curtimes(end-2:end), newtimes(end-2:end));
@@ -67,3 +70,7 @@ for gi=1:numel(Graphs)
     
 end
     
+fprintf('%6s    %5.2f  %5.2f  %5.2f    %5.2f  %5.2f  %5.2f\n', ' ', curtimes(end-2:end), newtimes(end-2:end));
+        
+fprintf('\n\n Testing done. If no warnings were output, then everything works!');
+
