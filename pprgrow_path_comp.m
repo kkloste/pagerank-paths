@@ -1,18 +1,18 @@
-function [bestset,bestcond,bestcut,bestvol] = pprgrow(A,vert,varargin)
-% PPRGROW Grow a cluster around a vertex using a PPR algorithm
+function [bestset,bestcond,bestcut,bestvol] = pprgrow_path_comp(A,vert,varargin)
+% PPRGROW_PATH_COMP Grow a cluster around a vertex using a PPR algorithm
 %
-% [bestset,cond,cut,vol] = pprgrow(A,vert) solves a PPR problem and
+% [bestset,cond,cut,vol] = pprgrow_path_comp(A,vert) solves a PPR problem and
 % extracts a cluster for various cluster volumes ranging from the degree
 % of the vertex + 2 to the degree of the vertex + 300000.  In other words, 
 % the goal is to find a cluster of up to 300000 additional edges nearby
 % the seed vertex.  The returned cluster is the one that has the best
 % conductance score among all the clusters found.
 %
-% [bestset,cond,cut,vol] = pprgrow(A,verts) solves a PPR problem that
+% [bestset,cond,cut,vol] = pprgrow_path_comp(A,verts) solves a PPR problem that
 % tries to find a set that is 2 to 300000 times the size of the input group
 % of vertices.  
 %
-% ... pprgrow(A,verts,'key',value,'key',value) specifies optional arguments
+% ... pprgrow_path_comp(A,verts,'key',value,'key',value) specifies optional arguments
 %
 % 'nruns' : specific the number of PPR runs.  The default is 32, which will
 %   look for clusters with 2, 3, 4, 5, 10, 15, 20, 30, 40, 50, 100, 150, 
@@ -35,7 +35,7 @@ function [bestset,bestcond,bestcut,bestvol] = pprgrow(A,vert,varargin)
 %   Using a value of 0.999 is reasonable if your goal is to look for larger
 %   clusters.
 
-% warning('pprgrow:badDefaults',...
+% warning('pprgrow_path_comp:badDefaults',...
 %    ['this file was edited for fair comparisons in the hkgrow package ' ...
 %    'please see the neighborhoods package for better defaults']);
 
@@ -43,7 +43,7 @@ function [bestset,bestcond,bestcut,bestvol] = pprgrow(A,vert,varargin)
 % Purdue University, 2011
 %
 % The mex file, pprgrow_mex.cc, was updated to use Google's dense_hash
-% for use in a KDD 2015 paper
+% for use in experiments
 % Kyle Kloster
 % Purdue University, 2015
 

@@ -1,5 +1,5 @@
-function grid_v_grow_new(filename, numtrials, load_dir)
-% function grid_v_grow_new(filename, numtrials, load_dir)
+function grid_v_grow(filename, numtrials, load_dir)
+% function grid_v_grow(filename, numtrials, load_dir)
 %
 % Compares two ppr-grid-mex versions in runtime
 % on dataset = input 'filename'.
