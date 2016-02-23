@@ -4,7 +4,7 @@
 % Last altered 11/29/2015
 
 clear; clc; 
-cd ~/Dropbox/ppr-all/code/plotting
+load_directory = '../experiments/timing_experiments/results/';
 
 files = {
     'grid_v_grow_on_itdk0304.mat', ...
@@ -28,7 +28,7 @@ filenames = {
 fprintf('\n First do ratios of conductances (This is Table 4)  \n \n');
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory fname]);
     flname = char(filenames(j));
     %name & pgrow & pgrid & 64 & 32 \\
 

@@ -19,7 +19,9 @@ Reproducing Paper Results
 * Before executing any experiment scripts, `compile.m` must be run to compile all mex codes.
 * Furthermore, the relevant datasets must be collected, and directories in the experiment scripts must be changed to point to the appropriate directories containing those datasets.
 
-### DONE:
+### Experiment scripts:
+To reproduce figures from the paper, run the following codes:
+
 * Figure 1: run `/experiments/netscience/netscience_eps.m`
 * Figure 2: run `/experiments/netscience/exact_paths_ACL.m` (Note this took about 2 minutes to run on a 2014 macbook air.)
 * Figure 3: run `/experiments/prpaths/prpath_netsci.m` (Note that with rho=0.9 this will take 30-70 minutes, even though computing the PageRank info itself takes less than a second. This is because we haven't yet optimized the plotting features for runtime.)
@@ -35,17 +37,13 @@ Reproducing Paper Results
 
 * Figure 8: run `/experiments/rho_scaling/lj_anomaly.m`
 
-### CHECK
-
 * Table 2:
 	1. Generate data by executing (from `/experiments/timing_experiments/`)
 		* `path_fullgrow_exps.sh` to generate data for algorithm `multi diff`
 		* `path_time_exps.sh` to generate data for algorithms `Single diff` and `ppr-path`
-	2. Generate table data by executing (from /ppr-all/results)
-		* `path_grow_compare_ejam.m`
+	2. Generate table data by executing `/plotting/path_grow_compare_ejam.m`
+
 * Table 3 and 4:
-	1. Generate data by executing (from `/experiments/timing_experiments/`)
-		* `new_grid_experiments.sh`
-	2. Generate table data by executing (from `/results/`)
-		* `grid_bi_column_ejam.m`
+	1. Generate data by executing `/experiments/timing_experiments/grid_experiments.sh` (this calls `grid_v_grow_new.m` for all datasets)
+	2. Generate tables by executing `/plotting/grid_bi_column_ejam.m`
 		

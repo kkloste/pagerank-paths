@@ -1,7 +1,7 @@
 clear
 clc
 
-
+load_directory = '../experiments/timing_experiments/results/';
 files = { 
 'path-time-fb-one-cc', ...
 'path-time-ljournal-prepped', ...
@@ -28,7 +28,7 @@ condtot2 = [];
     fprintf('filename  & $\\#$ \\epscu  & Single & Path & Appx. Path &  Single cond & 95 best Path/single cond \\\\ \n');
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory fname]);
     flname = char(filenames(j));
 
     
