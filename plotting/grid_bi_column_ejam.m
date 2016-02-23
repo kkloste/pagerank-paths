@@ -93,7 +93,7 @@ end
 fprintf('\n Now do ratios of times (This is Table 3) \n \n');
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);% load(fname);
+    load([load_directory fname]);% load(fname);
     flname = char(filenames(j));
     %name & pgrow & pgrid & 64 & 32 \\
 

@@ -1,8 +1,8 @@
 clear; clc;
 
 load_directory = '../experiments/timing_experiments/results/';
-%suffix_rho = '-rho0.9'; % other option is '-rho0'
-suffix_rho = '-rho0'; % other option is '-rho0'
+suffix_rho = '-rho0.9'; % other option is '-rho0'
+% suffix_rho = '-rho0'; % other option is '-rho0'
 
 files = { 'path-time-itdk0304', ...
 'path-time-dblp',...
@@ -70,7 +70,7 @@ for j=1:length(files),
 
     % get many-diffusion information
     fname = char(files2(j));
-    load(['../results/' fname]);
+    load([load_directory fname]);
 
     manydiff_times = times(:,2);
     manydiff_conds = conds(:,2);
