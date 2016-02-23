@@ -1,7 +1,6 @@
 % This script creates LaTeX formatted tables
 % displaying the times and conductances for ppr-grid and pprgrow.
 %
-% Last altered 11/29/2015
 
 clear; clc; 
 load_directory = '../experiments/timing_experiments/results/';
@@ -23,7 +22,6 @@ filenames = {
     'twitter', 'friendster'
 };
 
-% Y = prctile(X,p) returns percentiles of the values in X for p in [0,100].
 
 fprintf('\n First do ratios of conductances (This is Table 4)  \n \n');
 for j=1:length(files),

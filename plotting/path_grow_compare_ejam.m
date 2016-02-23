@@ -1,8 +1,13 @@
+% This script creates LaTeX formatted tables
+% displaying the times and conductances comparing ppr-path with
+% a single PPR diffusion and multiple PPR diffusions
+%
+
 clear; clc;
 
 load_directory = '../experiments/timing_experiments/results/';
-suffix_rho = '-rho0.9'; % other option is '-rho0'
-% suffix_rho = '-rho0'; % other option is '-rho0'
+% suffix_rho = '-rho0.9'; % other option is '-rho0'
+suffix_rho = '-rho0'; % other option is '-rho0'
 
 files = { 'path-time-itdk0304', ...
 'path-time-dblp',...
@@ -29,7 +34,7 @@ files2 = { 'pathgrow-many-itdk0304', ...
 for j=1:length(files),
      files{j} = [char(files{j}) char(suffix_rho) '.mat'];
      files2{j} = [files2{j} suffix_rho '.mat'];
-     disp([ files{j} '  '  files2{j} ])
+%      disp([ files{j} '  '  files2{j} ]);
 end
 fprintf('\n\n');
 %
@@ -39,8 +44,6 @@ filenames = {
 'itdk0304', 'dblp', 'youtube', 'fb-one', 'fbA', 'ljournal', ...
 'hollywood', 'twitter', 'friendster'
 };
-
-% Y = prctile(X,p) returns percentiles of the values in X for p in [0,100].
 
 conductances_pprpaths1 = [];
 conductances_singlediff = [];
