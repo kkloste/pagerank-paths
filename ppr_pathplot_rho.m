@@ -20,34 +20,39 @@ function [cond, bestcutvals] = ppr_pathplot_rho(A, seed, varargin)
 %
 % Default values:
 % alpha = 0.99;
-% epsmin=1e-4;
-% rho = 0.7;
+% epsmin = 1e-4;
+% rho = 0.1;
 
 parser = inputParser;
 parser.addOptional('epsmin',1e-4);
 parser.addOptional('alpha',0.99);
-parser.addOptional('rho',0.7);
+parser.addOptional('rho',0.1);
 parser.parse(varargin{:});
 
 epsmin = parser.Results.epsmin;
 alpha = parser.Results.alpha;
 rho = parser.Results.rho;
 
+%%
 n = size(A,1);
 rval = ppr_path_rho(A,seed,'epsmin',epsmin,'rho',rho,'alpha',alpha);
 
+
+%%%
+%%%
+
+%%
 % find the set of non-zeros and build a local index
 xfinal = accumarray(rval.step_stats(:,3),rval.step_stats(:,7),[n,1]);
 xnnz = find(xfinal);
 xinds = zeros(n,1);
 xinds(xnnz) = 1:numel(xnnz);
-%%
 
+% Find best conductance info
 X = zeros(numel(xnnz),size(rval.ep_stats,1));
 newconds = [];
 mincond = Inf;
 bsetthresh = zeros(size(rval.ep_stats,1),1);
-mincond_which_ep = 1;
 for i=1:size(rval.ep_stats,1)
     ep = rval.ep_stats(i,1);
     step = rval.ep_stats(i,6)+1;
@@ -60,70 +65,84 @@ for i=1:size(rval.ep_stats,1)
     if curcond < mincond
         newconds(end+1,:) = [ep,curcond];
         mincond = curcond;
-        mincond_which_ep = i;
     end
 end
-cond = mincond;
-xsolvec = zeros(n,1);
-xsolvec(xnnz) = X(:,mincond_which_ep);
-[~,xperm] = sort(xsolvec,'descend');
-bestcutvals = cutsweep(A,xperm);
 
-
-%%
-
-cmappart = hot(9);
-cmap = @() colormap(flipud(cmappart(2:6,:)));
-
+%% Draw path plots
 clf; hold on;
-xvalind = find(rval.ep_stats(:,1) < epsmin,1,'first');
-hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
-plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',2);
-set(gca,'XScale','log');
-set(gca,'YScale','log');
-crange = [-3,0];
-cmap();
-colors=colormap;
-ncolors = size(colors,1);
-for i=1:numel(hs)
-    cval = log10(X(i,xvalind));
-    cind = round(((cval-(crange(1)))/(crange(2)-crange(1)))*(ncolors-1)+1);
-    cind = max(cind,1); % cap to range
-    cind = min(cind,ncolors);
-    set(hs(i),'Color',colors(cind,:),'LineWidth',0.3);
-end
 
-xl = xlim;
-xl = [xl(1), 1/epsmin];
-yl = ylim;
-line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
-xlabel('1/\epsilon');
-ylabel('Degree normalized PageRank');
-box off;
-
-for i=1:size(newconds,1)
-    line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
-end
-lasteps = Inf;
-for i=size(newconds,1):-1:1
-    curcond=newconds(i,2);
-    curep = 1./newconds(i,1);
-    if curep<lasteps/2;
-        if curep > 10^4
-            ht=text(curep,newconds(i,1), sprintf('\\phi = %.3f',curcond),...
-                'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','left',...
-                'FontSize',8);
-        else
-            ht=text(curep,(yl(1)*newconds(i,1))^(1/2), sprintf('\\phi = %.3f',curcond),...
-                'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','center',...
-                'FontSize',8);
-        end
-        lasteps = curep;
+    hs=loglog((1./rval.ep_stats(:,1)), X','color','k');
+    plot(1./rval.ep_stats(:,1),bsetthresh,'k','LineWidth',1);
+    set(gca,'XScale','log');
+    set(gca,'YScale','log');
+    crange = [-3,0];
+    cmappart = hot(9);
+    cmap = @() colormap(flipud(cmappart(2:6,:)));
+    cmap();
+    colors=colormap;
+    ncolors = size(colors,1);
+    for i=1:numel(hs)
+        cval = log10(X(i,end));
+        cind = round(((cval-(crange(1)))/(crange(2)-crange(1)))*(ncolors-1)+1);
+        cind = max(cind,1); % cap to range
+        cind = min(cind,ncolors);
+        set(hs(i),'Color',colors(cind,:),'LineWidth',0.3);
     end
-end
 
-xlim(xl);
-set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([3.5,3]);
-% print(gcf,'./figures/fbA-path-rho.png','-dpng','-r600');
+    % Draw in diagonal line
+    xl = xlim;
+    yl = ylim;
+    line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
+    ylabel('Degree-normalized PageRank');
+    box off;
+
+    lasteps = Inf;
+    for i=size(newconds,1):-1:1
+        curcond=newconds(i,2);
+        curep = 1./newconds(i,1);
+        if curep<lasteps/2;
+         line([1./newconds(i,1) 1./newconds(i,1)],[yl(1) (1-rho)*newconds(i,1)],'LineWidth',0.5,'Color','b');
+            if curep > 10^4
+                ht=text(curep,yl(1), sprintf('\\phi = %.3f',curcond),...
+                    'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','left',...
+                    'FontSize',9);
+            else
+                ht=text(curep,yl(1), sprintf('\\phi = %.3f',curcond),...
+                    'Rotation',90,'VerticalAlignment','top','HorizontalAlignment','left',...
+                    'FontSize',9);
+            end
+            lasteps = curep;
+        end
+    end
+
+    xl(2) = 1/epsmin;
+    xlim(xl);
+    ylim(yl);
+    Xticks = 10.^[ 1: floor( abs(log10( epsmin )) ) ] ;
+    set(gca,'XTick',Xticks);
+    set(gca,'XTickLabel','');
+    set_figure_size([3.5,2.5]);
+    
+    print(gcf,['./images/ppr_pathplot_seed', num2str(seed), '.png'],'-dpng','-r600');
+
+%% Plot conductance for our paths
+
+    clf;
+
+    plot( 1./rval.ep_stats(:,1), rval.ep_stats(:,2) )
+
+    set(gca,'XScale','log');
+    set(gca,'YScale','log');
+
+    xlabel('1/\epsilon');
+    ylabel('Best \phi');
+    box off;
+
+    xlim(xl);
+    ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
+    Xticks = 10.^[ 1: floor( abs(log10( epsmin )) ) ] ;
+    set(gca,'XTick',Xticks);
+    set_figure_size([3.5,1.5]);
+
+    print(gcf,['./images/ppr_pathplot_conductance_seed', num2str(seed), '.png'],'-dpng','-r600');
 

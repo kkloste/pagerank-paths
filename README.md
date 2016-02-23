@@ -12,14 +12,17 @@ ppr-path: seeded PageRank solution paths for refined local clustering
 
 _These are research codes and may not work for you._
 
-Download
---------
-
-(nothing yet)
 
 Demo
 --------
-	(nothing yet)
+
+	compile ;
+	load ./data/usps_3nn.mat;
+	n = size(G,1);
+	seed = randi(n);
+	ppr_pathplot_rho(G,seed,'rho',0.1);
+	
+	
     
 Reusable codes
 --------------
@@ -27,6 +30,7 @@ Reusable codes
 * `ppr_path_rho.m` Matlab wrapper for the mex code `ppr_paths_rho_mex.cpp`.
 * `ppr_fast_grid_mex.cpp` C++ MEX code for computing PPR on a grid of eps parameters. Takes inputs "A", "seeds", "epsmin", "alpha", and "theta" (determines the fineness of the grid, i.e. how many eps values there are between 1e-1 and epsmin).
 * `pprgrow_path_comp.m` modifies pprgrow.m to compute 10,000 instances of pprgrow, for use in comparing our ppr_paths code with the naive method.
+* `ppr_pathplot_rho.m`  Given a graph and a seed, this computes the solution paths and also outputs images of the pathplot and conductance curve for the solution paths.
 * `compile.m` will compile the necessary mex files.
 * `/util/` contains standard codes for computing conducance and sweep cuts, etc.
 
