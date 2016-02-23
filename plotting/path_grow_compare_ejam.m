@@ -1,7 +1,6 @@
 clear; clc;
-cd ~/Dropbox/ppr-all/code/plotting
 
-
+load_directory = '../experiments/timing_experiments/results/';
 %suffix_rho = '-rho0.9'; % other option is '-rho0'
 suffix_rho = '-rho0'; % other option is '-rho0'
 
@@ -52,7 +51,7 @@ fprintf('\n TABLE 2:  comparing ppr_paths to (1) a single diffusion, and (2) 10,
 fprintf('\n filename  & $\\#$ \\epscu  & single & path & multi &  best ratio \\\\ \n');
 for j=1:length(files),
     fname = char(files(j));
-    load(['../results/' fname]);
+    load([load_directory fname]);
     flname = char(filenames(j));
     
     % GET MEDIAN  TIMES, NUM_EPS
