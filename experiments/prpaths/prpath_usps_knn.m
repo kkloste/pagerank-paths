@@ -1,7 +1,9 @@
 % Plot PageRank solutions paths and ground-truth labels
 % for USPS digits dataset
 clear; clc;
-fname = 'usps_3nn';
+
+knn = 10; % 3,10,30
+fname = ['usps_', num2str(knn), 'nn'];
 load(['../../data/' fname '.mat']); % must change directory to point to location of dataset
 
 % Ensure adjacency matrix is symmetrized and binary
@@ -22,7 +24,8 @@ node_labels = labels; clear labels;
 digit_label = find( node_labels == digit );
 
 alpha1 = 0.99;
-epsmin=1e-4;
+epsmin= 3*1e-4;
+epsmin = epsmin/knn;
 rho = 0.9;
 
 % So we can label image according to value of rho used
@@ -125,8 +128,8 @@ for i=size(newconds,1):-1:1
 end
 
 xlim(xl);
-ylim([1e-5, 3*1e-1]);
-%set(gca,'XTick',[10,100,1000,10000,100000]);
+% ylim([1e-5, 3*1e-1]);
+% set(gca,'XTick',[10,100,1000,10000,100000]);
 set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 print(gcf,strcat( './figures/', fname, '-phi-rho', dummyrho,  '-', num2str(digit),  '.png'),'-dpng','-r600');
@@ -180,7 +183,7 @@ yl = ylim;
 line([xl(1),1./epsmin],[(1-rho)./xl(1),(1-rho)*epsmin],'Color','k','LineWidth',1);
 %xlabel('1/\epsilon');
 ylabel('Degree-normalized PageRank');
-title('USPS-digits, labeled');
+title(sprintf(' %d-nearest-neighbor graph', knn) );
 box off;
 
 lasteps = Inf;
@@ -203,8 +206,8 @@ for i=size(newconds,1):-1:1
 end
 
 xlim(xl);
-ylim([1e-5, 3*1e-1]);
-%set(gca,'XTick',[10,100,1000,10000,100000]);
+% ylim([1e-5, 3*1e-1]);
+% set(gca,'XTick',[10,100,1000,10000,100000]);
 set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 
