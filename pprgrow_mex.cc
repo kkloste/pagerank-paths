@@ -1,11 +1,15 @@
 /**
- * @file pprclus_mex.cc
+ * @file pprgrow_mex.cc
  * Implement a PPR clustering scheme.
  * 
- * mex pprclus_mex.cc CXXFLAGS="\$CXXFLAGS -std=c++0x" -largeArrayDims
+ * mex pprgrow_mex.cc CXXFLAGS="\$CXXFLAGS -std=c++0x" -largeArrayDims
  *
  * Updated from David F. Gleich's 2011 code
  * to use Google's dense_hash.
+ * Kyle Kloster, Purdue University 2015
+ *
+ *  USAGE
+ * [bestset,cond,cut,vol] = pprgrow_mex(A,set,targetvol,alpha)
  */
 
 #ifndef __APPLE__
