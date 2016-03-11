@@ -18,6 +18,9 @@ alpha = 0.99;
 rho = 0;
 seed = 743479;
 
+
+fprintf('\nFirst approximate soln paths with rho=%.2f\n', rho);
+
 n = size(A,1);
 rval = ppr_path_rho(A,seed,'epsmin',epsmin,'rho',rho,'alpha',alpha);
 
@@ -26,6 +29,8 @@ xfinal = accumarray(rval.step_stats(:,3),rval.step_stats(:,7),[n,1]);
 xnnz = find(xfinal);
 xinds = zeros(n,1);
 xinds(xnnz) = 1:numel(xnnz);
+
+fprintf('Done. Number of epsilon values explored in our approximate soln paths, %d\n', length(rval.ep_stats) );
 %%
 
 X = zeros(numel(xnnz),size(rval.ep_stats,1));
@@ -52,7 +57,7 @@ cond = mincond;
 xsolvec = zeros(n,1);
 xsolvec(xnnz) = X(:,mincond_which_ep);
 [~,xperm] = sort(xsolvec,'descend');
-bestcutvals = cutsweep(A,xperm); % find the best conductance set
+bestcutvals = cutsweep(A,xperm(1:length(xnnz)); % find the best conductance set
 
 
 %%
@@ -131,7 +136,7 @@ set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 
 yl = ylim;
-line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','k','LineWidth',1);
 
 print(gcf,['./images/lj-seed' num2str(seed) '-rho0-cond.png'],'-dpng','-r600');
 
@@ -257,7 +262,7 @@ ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 yl = ylim;
-line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','k','LineWidth',1);
 
 print(gcf,['./images/lj-seed' num2str(seed) '-rho9-cond.png'],'-dpng','-r600');
 
@@ -382,7 +387,7 @@ ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 yl = ylim;
-line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','k','LineWidth',1);
 
 print(gcf,['./images/lj-seed' num2str(seed) '-rho9fulleps-cond.png'],'-dpng','-r600');
 
