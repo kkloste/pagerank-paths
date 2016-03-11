@@ -130,6 +130,9 @@ yl_cond = ylim;
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
 
+yl = ylim;
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
+
 print(gcf,['./images/lj-seed' num2str(seed) '-rho0-cond.png'],'-dpng','-r600');
 
 fprintf('\n lj rho=0 done.\n');
@@ -253,6 +256,8 @@ xlim(xl);
 ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
+yl = ylim;
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
 
 print(gcf,['./images/lj-seed' num2str(seed) '-rho9-cond.png'],'-dpng','-r600');
 
@@ -376,6 +381,8 @@ xlim(xl);
 ylim(yl_cond);
 set(gca,'XTick',[10,100,1000,10000,100000]);
 set_figure_size([3.5,1.5]);
+yl = ylim;
+line([1e-5,1e-5],[yl(1), yl(2)],'Color','-k','LineWidth',1);
 
 print(gcf,['./images/lj-seed' num2str(seed) '-rho9fulleps-cond.png'],'-dpng','-r600');
 

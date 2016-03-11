@@ -97,8 +97,7 @@ box off;
 ylim(yl)
 xlim(xl);
 set(gca,'XTick',[10,100,1000,10000,100000]);
-% set(gca,'XTickLabel','');
-xlabel('1/\epsilon');
+set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 
 print(gcf, ['../images/netscience-our-path', num2str(seed), '.png'],'-dpng','-r600');  
@@ -198,14 +197,13 @@ box off;
 
 xlim(xl);
 ylim(yl);
-xlabel('1/\epsilon');
 set(gca,'XTick',[10,100,1000,10000,100000]);
-%set(gca,'XTickLabel','');
+set(gca,'XTickLabel','');
 set_figure_size([3.5,2.5]);
 
 print(gcf,['../images/netscience-ACL-path', num2str(seed), '.png'],'-dpng','-r600');
 
-%% Plot conductance for exact paths
+%% Plot conductance for our paths
 fprintf('... and plot conductances for exact paths. \n');
 
 clf;
@@ -224,28 +222,4 @@ set_figure_size([3.5,1.5]);
 
 print(gcf, ['../images/netscience-exact-cond', num2str(seed), '.png'],'-dpng','-r600');  
 
-
-%% PLOT CONDUCTANCE FOR EXACT AND FOR OUR PATHS, OVERLAID
-fprintf('Now, plot conductances for both the exact and approximate paths. \n');
-
-clf;
-plot( 1./eps_subset, rval.ep_stats(eps_inds,2), '-r' )
-hold on
-plot( ((1-alpha)./taus) , minconds, '--b' );
-
-legend('approximate', 'exact', 'Location', 'NorthEast')
-legend boxoff
-
-set(gca,'XScale','log');
-set(gca,'YScale','log');
-
-xlabel('1/\epsilon');
-ylabel('Best \phi');
-box off;
-xlim(xl);
-ylim([ min( rval.ep_stats(:,2)*0.9 ), 1] );
-set(gca,'XTick',[10,100,1000,10000,100000]);
-set_figure_size([4,1.5]);
-
-print(gcf, ['../images/netscience-both-cond', num2str(seed), '.png'],'-dpng','-r600');  
 
