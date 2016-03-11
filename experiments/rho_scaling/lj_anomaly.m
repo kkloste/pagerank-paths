@@ -57,7 +57,7 @@ cond = mincond;
 xsolvec = zeros(n,1);
 xsolvec(xnnz) = X(:,mincond_which_ep);
 [~,xperm] = sort(xsolvec,'descend');
-bestcutvals = cutsweep(A,xperm(1:length(xnnz)); % find the best conductance set
+bestcutvals = cutsweep(A,xperm(1:length(xnnz)) ); % find the best conductance set
 
 
 %%
