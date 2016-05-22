@@ -1,5 +1,5 @@
 /**
- * @file sparseheap.hpp
+ * @file sparsevec.hpp
  * A set of functions to manipulate a max-heap as a set of 3 hashtables
  */
 
