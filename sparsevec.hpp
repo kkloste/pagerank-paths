@@ -1,6 +1,6 @@
 /**
  * @file sparsevec.hpp
- * A set of functions to manipulate a max-heap as a set of 3 hashtables
+ * A set of functions to manipulate a fast hashtable for doubles
  */
 
 #ifndef _SPARSEVEC_H_

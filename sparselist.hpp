@@ -1,6 +1,6 @@
 /**
  * @file sparselist.hpp
- * A set of functions to maintain a fast hash_table
+ * A set of functions to maintain a fast hash_table for unsigned integers
  */
 
 #ifndef _SPARSELIST_H_
