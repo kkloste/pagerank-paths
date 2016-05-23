@@ -35,7 +35,7 @@
 #include <algorithm>
 #include <math.h>
 
-#include "sparselist.hpp" // include our heap functions
+#include "sparselist.hpp" // include our sparse hashtable functions
 #include "sparseheap.hpp" // include our heap functions
 #include "sparserank.hpp" // include our sorted-list functions
 #include "sparsevec.hpp" // include our sparse hashtable functions
